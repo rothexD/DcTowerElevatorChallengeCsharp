@@ -1,7 +1,7 @@
 ﻿using DcTowerElevatorChallengeCsharp.Services;
 using System;
 using DcTowerElevatorChallengeCsharp.Data_Objects;
-
+using System.Threading;
 namespace DcTowerElevatorChallengeCsharp
 {
     class Program
@@ -18,16 +18,34 @@ namespace DcTowerElevatorChallengeCsharp
             sheduler.AddRequest(new RequestElevator(40,30,Enum.Directions.down));
             sheduler.AddRequest(new RequestElevator(30,20,Enum.Directions.down));
             sheduler.AddRequest(new RequestElevator(40,0,Enum.Directions.down));
-            sheduler.AddRequest(new RequestElevator(10,34,Enum.Directions.up));
-            sheduler.AddRequest(new RequestElevator(5,22,Enum.Directions.up));
-            sheduler.AddRequest(new RequestElevator(2,21,Enum.Directions.up));
-            sheduler.AddRequest(new RequestElevator(50,34,Enum.Directions.down));
-            sheduler.AddRequest(new RequestElevator(22,0,Enum.Directions.down));
-            sheduler.AddRequest(new RequestElevator(35,0,Enum.Directions.down));
-            sheduler.AddRequest(new RequestElevator(35,0,Enum.Directions.down));
-            sheduler.AddRequest(new RequestElevator(12,0,Enum.Directions.down));
-            sheduler.AddRequest(new RequestElevator(20,25,Enum.Directions.up));
-            sheduler.AddRequest(new RequestElevator(0,35,Enum.Directions.up));
+
+
+            sheduler.AddRequest(RequestElevator.GenerateRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRequest());
+
+            int counter = 0;
+            while (true)
+            {
+                Thread.Sleep(1000);
+                counter++;
+                if(counter % 13 == 0)
+                {
+                    sheduler.AddRequest(RequestElevator.GenerateRequest());
+                }
+                sheduler.Status();
+            }
+            
         }
     }
 }
