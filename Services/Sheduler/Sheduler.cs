@@ -25,8 +25,8 @@ namespace DcTowerElevatorChallengeCsharp.Services
         }
         public void Status()
         {
-            Console.WriteLine(Environment.NewLine + Environment.NewLine + "Requests left: " + RequestQueue.Count) ;
-            Console.WriteLine("Elevators left: " + ElevatorQueue.Count + Environment.NewLine + Environment.NewLine);
+            Console.WriteLine(Environment.NewLine + Environment.NewLine + "Requested Status:"+ Environment.NewLine + "Requests left: " + RequestQueue.Count + ", Elevators left: " + ElevatorQueue.Count + Environment.NewLine + Environment.NewLine) ;
+            Console.WriteLine();
         }
 
         public Sheduler()
