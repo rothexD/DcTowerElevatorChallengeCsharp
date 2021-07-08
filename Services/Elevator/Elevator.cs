@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DcTowerElevatorChallengeCsharp.Data_Objects;
+﻿using DcTowerElevatorChallengeCsharp.Data_Objects;
+using System;
 using System.Threading;
 
 namespace DcTowerElevatorChallengeCsharp.Services
@@ -22,10 +20,10 @@ namespace DcTowerElevatorChallengeCsharp.Services
         {
             Console.WriteLine("Elevator: " + ElevatorName + " got a request");
             Travel(CurrentElevatorLocation, requestedTransport.Current_floor);
-            OpenDoor(); 
+            OpenDoor();
             CloseDoor();
             Travel(CurrentElevatorLocation, requestedTransport.Destination_floor);
-            OpenDoor(); 
+            OpenDoor();
             CloseDoor();
             return true;
         }
@@ -45,12 +43,12 @@ namespace DcTowerElevatorChallengeCsharp.Services
         }
         private void Travel(int from, int too)
         {
-            if(_DoorIsOpen == true)
+            if (_DoorIsOpen == true)
             {
                 throw new Exception("Door was open while trying to travel");
             }
             int distance = Math.Abs(from - too);
-            Console.WriteLine("Elevator: " + ElevatorName + " traveling too " + too + " from " + from +" with floor distance " + distance);
+            Console.WriteLine("Elevator: " + ElevatorName + " traveling too " + too + " from " + from + " with floor distance " + distance);
             Thread.Sleep(distance * 50);
             CurrentElevatorLocation = too;
         }
