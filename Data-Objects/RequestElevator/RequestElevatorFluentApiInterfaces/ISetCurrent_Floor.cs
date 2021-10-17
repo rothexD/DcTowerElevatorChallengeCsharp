@@ -1,4 +1,4 @@
-﻿namespace DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevatorFluentApiInterfaces
+﻿namespace DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator.RequestElevatorFluentApiInterfaces
 {
     public interface ISetCurrent_Floor
     {

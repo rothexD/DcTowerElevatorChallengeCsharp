@@ -1,6 +1,6 @@
 ﻿using DcTowerElevatorChallengeCsharp.Enum;
 
-namespace DcTowerElevatorChallengeCsharp.Data_Objects
+namespace DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator
 {
     public interface IRequestElevator
     {

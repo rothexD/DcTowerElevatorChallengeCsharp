@@ -1,7 +1,7 @@
-﻿using DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevatorFluentApiInterfaces;
+﻿using DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator.RequestElevatorFluentApiInterfaces;
 using DcTowerElevatorChallengeCsharp.Enum;
 using System;
-namespace DcTowerElevatorChallengeCsharp.Data_Objects
+namespace DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator
 {
 
     public class RequestElevator : IRequestElevator, ISetCurrent_Floor, ISetDestination_Floor, ISetDirections

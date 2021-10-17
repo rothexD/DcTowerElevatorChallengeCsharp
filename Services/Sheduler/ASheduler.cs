@@ -1,5 +1,5 @@
 ﻿using DcTowerElevatorChallengeCsharp.CustomExceptions;
-using DcTowerElevatorChallengeCsharp.Data_Objects;
+using DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator;
 using DcTowerElevatorChallengeCsharp.Validators;
 using FluentValidation.Results;
 using System;
@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace DcTowerElevatorChallengeCsharp.Services
 {
-    abstract class ASheduler : ISheduler
+    public abstract class ASheduler : ISheduler
     {
         // stores all recieved requests
         private BlockingCollection<IRequestElevator> RequestQueue { get; } = new BlockingCollection<IRequestElevator>();
