@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DcTowerElevatorChallengeCsharp.CustomExceptions;
-using DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator;
+﻿using DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator;
 using FluentValidation;
 
 namespace DcTowerElevatorChallengeCsharp.Validators

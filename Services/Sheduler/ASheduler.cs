@@ -22,18 +22,18 @@ namespace DcTowerElevatorChallengeCsharp.Services
                 ValidationResult results = validator.Validate(request);
                 if (!results.IsValid)
                 {
-                    foreach(var e in results.Errors)
+                    foreach (var e in results.Errors)
                     {
                         Console.WriteLine(e.ErrorMessage);
                     }
                     return false;
                 }
             }
-            catch(SameFloorException)
+            catch (SameFloorException)
             {
                 Console.WriteLine("floor was the same");
                 return false;
-            }      
+            }
             RequestQueue.Add(request);
             return true;
         }
@@ -42,7 +42,6 @@ namespace DcTowerElevatorChallengeCsharp.Services
             Console.WriteLine(Environment.NewLine + Environment.NewLine + "Requested Status:" + Environment.NewLine + "Requests left: " + RequestQueue.Count + ", Elevators Status: " + ElevatorStatus() + Environment.NewLine + Environment.NewLine);
             Console.WriteLine();
         }
-
 
         public ASheduler()
         {
@@ -56,8 +55,10 @@ namespace DcTowerElevatorChallengeCsharp.Services
 
         private void SheduleTransportation()
         {
+            //start a thread that starts new threads with elevators
             Thread sheduleThread = new Thread(() =>
             {
+                //continiously try to start elevator by taking requests and elevators from the queus
                 while (true)
                 {
                     IRequestElevator request = RequestQueue.Take();
