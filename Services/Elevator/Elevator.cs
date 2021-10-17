@@ -16,13 +16,13 @@ namespace DcTowerElevatorChallengeCsharp.Services
         }
 
         // simulates a full elvator run
-        public bool Transport(RequestElevator requestedTransport)
+        public bool Transport(IRequestElevator requestedTransport)
         {
             Console.WriteLine("Elevator: " + ElevatorName + " got a request");
-            Travel(CurrentElevatorLocation, requestedTransport.Current_floor);
+            Travel(CurrentElevatorLocation, requestedTransport.Current_Floor);
             OpenDoor();
             CloseDoor();
-            Travel(CurrentElevatorLocation, requestedTransport.Destination_floor);
+            Travel(CurrentElevatorLocation, requestedTransport.Destination_Floor);
             OpenDoor();
             CloseDoor();
             return true;

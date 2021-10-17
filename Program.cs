@@ -18,20 +18,21 @@ namespace DcTowerElevatorChallengeCsharp
             sheduler.AddRequest(new RequestElevator(30, 20, Enum.Directions.down));
             sheduler.AddRequest(new RequestElevator(40, 0, Enum.Directions.down));
 
+            IRequestElevator a = RequestElevator.Builder().SetCurrent_Floor(1).SetDestination_floor(2).SetDirections(Enum.Directions.up);
 
-            sheduler.AddRequest(RequestElevator.GenerateRequest());
-            sheduler.AddRequest(RequestElevator.GenerateRequest());
-            sheduler.AddRequest(RequestElevator.GenerateRequest());
-            sheduler.AddRequest(RequestElevator.GenerateRequest());
-            sheduler.AddRequest(RequestElevator.GenerateRequest());
-            sheduler.AddRequest(RequestElevator.GenerateRequest());
-            sheduler.AddRequest(RequestElevator.GenerateRequest());
-            sheduler.AddRequest(RequestElevator.GenerateRequest());
-            sheduler.AddRequest(RequestElevator.GenerateRequest());
-            sheduler.AddRequest(RequestElevator.GenerateRequest());
-            sheduler.AddRequest(RequestElevator.GenerateRequest());
-            sheduler.AddRequest(RequestElevator.GenerateRequest());
-            sheduler.AddRequest(RequestElevator.GenerateRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
+            sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
 
             int counter = 0;
             while (true)
@@ -40,7 +41,7 @@ namespace DcTowerElevatorChallengeCsharp
                 counter++;
                 if (counter % 13 == 0)
                 {
-                    sheduler.AddRequest(RequestElevator.GenerateRequest());
+                    sheduler.AddRequest(RequestElevator.GenerateRandomRequest());
                 }
                 sheduler.Status();
             }

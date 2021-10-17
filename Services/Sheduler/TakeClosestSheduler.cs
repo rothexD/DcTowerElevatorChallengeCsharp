@@ -1,14 +1,13 @@
 ﻿using DcTowerElevatorChallengeCsharp.Data_Objects;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
 namespace DcTowerElevatorChallengeCsharp.Services
 
 {
-    class TakeClosestSheduler : Sheduler
+    class TakeClosestSheduler : ASheduler
     {
         private ConcurrentDictionary<string, IElevator> ElevatorQueue { get; } = new ConcurrentDictionary<string, IElevator>();
         private ManualResetEvent elevatorJustEnqued = new ManualResetEvent(false);
@@ -23,7 +22,7 @@ namespace DcTowerElevatorChallengeCsharp.Services
             EnqueElevator(new Elevator("7"));
         }
 
-        protected override IElevator ChooseElevator(RequestElevator request)
+        protected override IElevator ChooseElevator(IRequestElevator request)
         {
 
             elevatorJustEnqued.WaitOne();
@@ -32,30 +31,30 @@ namespace DcTowerElevatorChallengeCsharp.Services
 
             lock (ElevatorQueue)
             {
-                Console.WriteLine("tried remove: " + closestElevatorKey +" with count "+ ElevatorStatus());
+                Console.WriteLine("tried remove: " + closestElevatorKey + " with count " + ElevatorStatus());
                 ElevatorQueue.TryRemove(closestElevatorKey, out IElevator chosenElevator);
 
-                    if (ElevatorQueue.Count == 0)
-                    {
-                        elevatorJustEnqued.Reset();
-                    }
+                if (ElevatorQueue.Count == 0)
+                {
+                    elevatorJustEnqued.Reset();
+                }
                 return chosenElevator;
             }
         }
 
-        private string FindClosestElevatorKey(RequestElevator request)
+        private string FindClosestElevatorKey(IRequestElevator request)
         {
             string closestElevatorKey = "";
             int closestDistance = int.MaxValue;
 
-            foreach (var elevator in ElevatorQueue.ToList())
+            ElevatorQueue.ToList().ForEach(elevator =>
             {
-                int distance = Math.Abs(elevator.Value.CurrentElevatorLocation - request.Current_floor);
+                int distance = Math.Abs(elevator.Value.CurrentElevatorLocation - request.Current_Floor);
                 if (distance < closestDistance)
                 {
                     closestElevatorKey = elevator.Key;
                 }
-            }
+            });
             return closestElevatorKey;
         }
 

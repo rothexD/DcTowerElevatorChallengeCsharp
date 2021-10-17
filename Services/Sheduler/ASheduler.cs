@@ -5,16 +5,13 @@ using System.Threading;
 
 namespace DcTowerElevatorChallengeCsharp.Services
 {
-    abstract class Sheduler : ISheduler
+    abstract class ASheduler : ISheduler
     {
         // stores all recieved requests
-        private BlockingCollection<RequestElevator> RequestQueue { get; } = new BlockingCollection<RequestElevator>();
-
-        //stores all avaiable elevators
+        private BlockingCollection<IRequestElevator> RequestQueue { get; } = new BlockingCollection<IRequestElevator>();
 
 
-
-        public bool AddRequest(RequestElevator request)
+        public bool AddRequest(IRequestElevator request)
         {
             // Check if valid request here
 
@@ -28,7 +25,7 @@ namespace DcTowerElevatorChallengeCsharp.Services
         }
 
 
-        public Sheduler()
+        public ASheduler()
         {
             // Initial elevator setup
 
@@ -44,22 +41,20 @@ namespace DcTowerElevatorChallengeCsharp.Services
             {
                 while (true)
                 {
-                    RequestElevator request = RequestQueue.Take();
+                    IRequestElevator request = RequestQueue.Take();
                     IElevator elevator = ChooseElevator(request);
                     StartElevatorJurney(request, elevator);
                 }
             });
             sheduleThread.Start();
         }
-        private void StartElevatorJurney(RequestElevator request, IElevator elevator)
+        private void StartElevatorJurney(IRequestElevator request, IElevator elevator)
         {
             Thread elevatorThread = new Thread(() =>
             {
                 // call elevator transport method and upon finish enque itself again
                 elevator.Transport(request);
                 EnqueElevator(elevator);
-
-
             });
             elevatorThread.Start();
         }

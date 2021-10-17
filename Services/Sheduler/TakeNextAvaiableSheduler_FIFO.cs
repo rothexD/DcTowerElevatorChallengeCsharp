@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 
 namespace DcTowerElevatorChallengeCsharp.Services
 {
-    class TakeNextAvaiableSheduler_FIFO : Sheduler
+    class TakeNextAvaiableSheduler_FIFO : ASheduler
     {
         private BlockingCollection<IElevator> ElevatorQueue { get; } = new BlockingCollection<IElevator>();
 
@@ -18,7 +18,7 @@ namespace DcTowerElevatorChallengeCsharp.Services
             ElevatorQueue.Add(new Elevator("7"));
         }
 
-        protected override IElevator ChooseElevator(RequestElevator request)
+        protected override IElevator ChooseElevator(IRequestElevator request)
         {
             return ElevatorQueue.Take();
         }

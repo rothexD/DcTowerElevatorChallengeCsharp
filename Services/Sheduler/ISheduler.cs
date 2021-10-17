@@ -4,7 +4,7 @@ namespace DcTowerElevatorChallengeCsharp.Services
 {
     public interface ISheduler
     {
-        public bool AddRequest(RequestElevator request);
+        public bool AddRequest(IRequestElevator request);
         public void Status();
     }
 }
