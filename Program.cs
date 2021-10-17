@@ -9,8 +9,8 @@ namespace DcTowerElevatorChallengeCsharp
         {
             ISheduler sheduler = new TakeClosestSheduler();
 
-            sheduler.AddRequest(new RequestElevator(0, 55, Enum.Directions.up));
             sheduler.AddRequest(new RequestElevator(0, 45, Enum.Directions.up));
+            sheduler.AddRequest(new RequestElevator(0, 0, Enum.Directions.up));
             sheduler.AddRequest(new RequestElevator(0, 35, Enum.Directions.up));
             sheduler.AddRequest(new RequestElevator(0, 25, Enum.Directions.up));
             sheduler.AddRequest(new RequestElevator(0, 22, Enum.Directions.up));

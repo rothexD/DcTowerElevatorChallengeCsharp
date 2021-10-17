@@ -9,4 +9,8 @@
     <None Remove="Services\Sheduler\Sheduler.cs~RF1dca7450.TMP" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.3.3" />
+  </ItemGroup>
+
 </Project>

@@ -31,7 +31,7 @@ namespace DcTowerElevatorChallengeCsharp.Services
 
             lock (ElevatorQueue)
             {
-                Console.WriteLine("tried remove: " + closestElevatorKey + " with count " + ElevatorStatus());
+                Console.WriteLine("tried remove Elevator: " + closestElevatorKey + " with count ElevatorCount " + ElevatorStatus());
                 ElevatorQueue.TryRemove(closestElevatorKey, out IElevator chosenElevator);
 
                 if (ElevatorQueue.Count == 0)

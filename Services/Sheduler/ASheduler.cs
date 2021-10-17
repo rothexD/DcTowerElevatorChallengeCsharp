@@ -1,4 +1,7 @@
-﻿using DcTowerElevatorChallengeCsharp.Data_Objects;
+﻿using DcTowerElevatorChallengeCsharp.CustomExceptions;
+using DcTowerElevatorChallengeCsharp.Data_Objects;
+using DcTowerElevatorChallengeCsharp.Validators;
+using FluentValidation.Results;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
@@ -13,8 +16,24 @@ namespace DcTowerElevatorChallengeCsharp.Services
 
         public bool AddRequest(IRequestElevator request)
         {
-            // Check if valid request here
-
+            try
+            {
+                RequestElevatorValidator validator = new RequestElevatorValidator();
+                ValidationResult results = validator.Validate(request);
+                if (!results.IsValid)
+                {
+                    foreach(var e in results.Errors)
+                    {
+                        Console.WriteLine(e.ErrorMessage);
+                    }
+                    return false;
+                }
+            }
+            catch(SameFloorException)
+            {
+                Console.WriteLine("floor was the same");
+                return false;
+            }      
             RequestQueue.Add(request);
             return true;
         }
@@ -27,11 +46,11 @@ namespace DcTowerElevatorChallengeCsharp.Services
 
         public ASheduler()
         {
-            // Initial elevator setup
+            // Initial elevator setup in child class
 
             SheduleTransportation();
         }
-        protected abstract IElevator ChooseElevator(RequestElevator request);
+        protected abstract IElevator ChooseElevator(IRequestElevator request);
         protected abstract bool EnqueElevator(IElevator elevator);
         protected abstract string ElevatorStatus();
 
