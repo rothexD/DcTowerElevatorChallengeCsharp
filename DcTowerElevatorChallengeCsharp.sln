@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DcTowerElevatorChallengeCsh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImplementDcElevatorChallenge", "ImplementDcElevatorChallenge\ImplementDcElevatorChallenge.csproj", "{69470D8E-D307-48D2-840E-329CAAFF0BD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcTowerElevatorChallengeLibaryTests", "DcTowerElevatorChallengeLibaryTests\DcTowerElevatorChallengeLibaryTests.csproj", "{8C025E6F-97F0-43AB-A3F3-88A0FE5380EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{69470D8E-D307-48D2-840E-329CAAFF0BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69470D8E-D307-48D2-840E-329CAAFF0BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69470D8E-D307-48D2-840E-329CAAFF0BD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C025E6F-97F0-43AB-A3F3-88A0FE5380EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C025E6F-97F0-43AB-A3F3-88A0FE5380EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C025E6F-97F0-43AB-A3F3-88A0FE5380EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C025E6F-97F0-43AB-A3F3-88A0FE5380EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

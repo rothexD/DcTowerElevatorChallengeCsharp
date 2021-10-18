@@ -6,6 +6,17 @@ namespace DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator
 
     public class RequestElevator : IRequestElevator, ISetCurrent_Floor, ISetDestination_Floor, ISetDirections
     {
+        public int Current_Floor { get; private set; }
+        public int Destination_Floor { get; private set; }
+        public Directions Directions { get; private set; }
+
+        public RequestElevator(int current_floor, int destination_floor, Directions direction)
+        {
+            Current_Floor = current_floor;
+            Destination_Floor = destination_floor;
+            Directions = direction;
+        }
+        private RequestElevator() { }
         public static IRequestElevator GenerateRandomRequest()
         {
             Random dice = new Random(Guid.NewGuid().GetHashCode());
@@ -20,19 +31,7 @@ namespace DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator
                 return new RequestElevator(from, too, Directions.down);
             }
         }
-        public int Current_Floor { get; private set; }
-        public int Destination_Floor { get; private set; }
-        public Directions Directions { get; private set; }
-
-        public RequestElevator(int current_floor, int destination_floor, Directions direction)
-        {
-            Current_Floor = current_floor;
-            Destination_Floor = destination_floor;
-            Directions = direction;
-        }
-        private RequestElevator()
-        {
-        }
+        
         public static ISetCurrent_Floor Builder()
         {
             return new RequestElevator();

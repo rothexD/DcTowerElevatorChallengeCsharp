@@ -11,9 +11,18 @@ namespace DcTowerElevatorChallengeCsharp.Services
     public abstract class ASheduler : ISheduler
     {
         // stores all recieved requests
-        private BlockingCollection<IRequestElevator> RequestQueue { get; } = new BlockingCollection<IRequestElevator>();
+        private BlockingCollection<IRequestElevator> RequestQueue { get; init; }
+        protected abstract IElevator ChooseElevator(IRequestElevator request);
+        protected abstract bool EnqueElevator(IElevator elevator);
+        protected abstract string ElevatorStatus();
 
+        public ASheduler(BlockingCollection<IRequestElevator> setupColelction = null)
+        {
+            RequestQueue = setupColelction ?? new();
+            // Initial elevator setup in child class
 
+            SheduleTransportation();
+        }
         public bool AddRequest(IRequestElevator request)
         {
             try
@@ -42,16 +51,6 @@ namespace DcTowerElevatorChallengeCsharp.Services
             Console.WriteLine(Environment.NewLine + Environment.NewLine + "Requested Status:" + Environment.NewLine + "Requests left: " + RequestQueue.Count + ", Elevators Status: " + ElevatorStatus() + Environment.NewLine + Environment.NewLine);
             Console.WriteLine();
         }
-
-        public ASheduler()
-        {
-            // Initial elevator setup in child class
-
-            SheduleTransportation();
-        }
-        protected abstract IElevator ChooseElevator(IRequestElevator request);
-        protected abstract bool EnqueElevator(IElevator elevator);
-        protected abstract string ElevatorStatus();
 
         private void SheduleTransportation()
         {
