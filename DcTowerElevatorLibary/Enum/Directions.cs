@@ -2,7 +2,7 @@
 {
     public enum Directions
     {
-        up,
-        down
+        Up,
+        Down
     }
 }

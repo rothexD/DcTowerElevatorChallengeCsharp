@@ -4,30 +4,28 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading;
 using DcTowerElevatorChallengeCsharp.Services;
+using DcTowerElevatorChallengeCsharp.Services.Elevator;
+using DcTowerElevatorChallengeCsharp.Services.Scheduler;
 
-namespace ImplementDcElevatorChallenge.ImplementSheduler
+namespace ImplementDcElevatorChallenge.ImplementScheduler
 {
-    class TakeClosestSheduler : ASheduler
+    class TakeClosestScheduler : AScheduler
     {
-        private ConcurrentDictionary<string, IElevator> ElevatorQueue { get; } = new ConcurrentDictionary<string, IElevator>();
-        private ManualResetEvent elevatorJustEnqued = new ManualResetEvent(false);
-        public TakeClosestSheduler()
+        private ConcurrentDictionary<string, IElevator> ElevatorQueue { get; } 
+        
+        private readonly ManualResetEvent _elevatorJustEnqueued = new ManualResetEvent(false);
+        public TakeClosestScheduler(ConcurrentDictionary<string, IElevator> elevatorQueue = null,BlockingCollection<IRequestElevator> requestCollection = null)
+            : base(requestCollection)
         {
-            EnqueElevator(new Elevator("1"));
-            EnqueElevator(new Elevator("2"));
-            EnqueElevator(new Elevator("3"));
-            EnqueElevator(new Elevator("4"));
-            EnqueElevator(new Elevator("5"));
-            EnqueElevator(new Elevator("6"));
-            EnqueElevator(new Elevator("7"));
+            ElevatorQueue = elevatorQueue ?? new ConcurrentDictionary<string, IElevator>();
         }
 
         protected override IElevator ChooseElevator(IRequestElevator request)
         {
-            //wait until the elevator signal was set atleast once
-            elevatorJustEnqued.WaitOne();       
+            //wait until the elevator signal was set at least once
+            _elevatorJustEnqueued.WaitOne();
 
-            lock (ElevatorQueue)
+                lock (ElevatorQueue)
             {
                 string closestElevatorKey = FindClosestElevatorKey(request);
                 Console.WriteLine("tried remove Elevator: " + closestElevatorKey + " with count ElevatorCount " + ElevatorStatus());
@@ -35,7 +33,7 @@ namespace ImplementDcElevatorChallenge.ImplementSheduler
 
                 if (ElevatorQueue.Count == 0)
                 {
-                    elevatorJustEnqued.Reset();
+                    _elevatorJustEnqueued.Reset();
                 }
                 return chosenElevator;
             }
@@ -48,7 +46,7 @@ namespace ImplementDcElevatorChallenge.ImplementSheduler
 
             ElevatorQueue.ToList().ForEach(elevator =>
             {
-                int distance = Math.Abs(elevator.Value.CurrentElevatorLocation - request.Current_Floor);
+                int distance = Math.Abs(elevator.Value.CurrentElevatorLocation - request.CurrentFloor);
                 if (distance < closestDistance)
                 {
                     closestElevatorKey = elevator.Key;
@@ -57,12 +55,12 @@ namespace ImplementDcElevatorChallenge.ImplementSheduler
             return closestElevatorKey;
         }
 
-        protected override bool EnqueElevator(IElevator elevator)
+        public override bool EnqueueElevator(IElevator elevator)
         {
             lock (ElevatorQueue)
             {
                 ElevatorQueue.TryAdd(elevator.ElevatorName, elevator);
-                elevatorJustEnqued.Set();
+                _elevatorJustEnqueued.Set();
                 return true;
             }
         }

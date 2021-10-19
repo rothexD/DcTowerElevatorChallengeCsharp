@@ -6,14 +6,14 @@ namespace DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator
 
     public class RequestElevator : IRequestElevator, ISetCurrent_Floor, ISetDestination_Floor, ISetDirections
     {
-        public int Current_Floor { get; private set; }
-        public int Destination_Floor { get; private set; }
+        public int CurrentFloor { get; private set; }
+        public int DestinationFloor { get; private set; }
         public Directions Directions { get; private set; }
 
-        public RequestElevator(int current_floor, int destination_floor, Directions direction)
+        public RequestElevator(int currentFloor, int destinationFloor, Directions direction)
         {
-            Current_Floor = current_floor;
-            Destination_Floor = destination_floor;
+            CurrentFloor = currentFloor;
+            DestinationFloor = destinationFloor;
             Directions = direction;
         }
         private RequestElevator() { }
@@ -24,11 +24,11 @@ namespace DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator
             int too = dice.Next(0, 56);
             if (from < too)
             {
-                return new RequestElevator(from, too, Directions.up);
+                return new RequestElevator(from, too, Directions.Up);
             }
             else
             {
-                return new RequestElevator(from, too, Directions.down);
+                return new RequestElevator(from, too, Directions.Down);
             }
         }
         
@@ -36,14 +36,14 @@ namespace DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator
         {
             return new RequestElevator();
         }
-        public ISetDestination_Floor SetCurrent_Floor(int current_floor)
+        public ISetDestination_Floor SetCurrent_Floor(int currentFloor)
         {
-            this.Current_Floor = current_floor;
+            this.CurrentFloor = currentFloor;
             return this;
         }
-        public ISetDirections SetDestination_floor(int destination_floor)
+        public ISetDirections SetDestination_floor(int destinationFloor)
         {
-            this.Destination_Floor = destination_floor;
+            this.DestinationFloor = destinationFloor;
             return this;
         }
         public IRequestElevator SetDirections(Directions directions)

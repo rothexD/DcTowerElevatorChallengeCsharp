@@ -4,7 +4,7 @@ namespace DcTowerElevatorChallengeCsharp.Validators
 {
     public abstract class BaseValidator<T> : AbstractValidator<T>
     {
-        public BaseValidator()
+        protected BaseValidator()
         {
             CascadeMode = CascadeMode.Stop;
         }

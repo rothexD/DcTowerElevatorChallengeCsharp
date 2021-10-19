@@ -4,8 +4,8 @@ namespace DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator
 {
     public interface IRequestElevator
     {
-        public int Current_Floor { get; }
-        public int Destination_Floor { get; }
+        public int CurrentFloor { get; }
+        public int DestinationFloor { get; }
         public Directions Directions { get; }
     }
 }

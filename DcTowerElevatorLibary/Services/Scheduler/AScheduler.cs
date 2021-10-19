@@ -1,27 +1,29 @@
-﻿using DcTowerElevatorChallengeCsharp.CustomExceptions;
-using DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator;
-using DcTowerElevatorChallengeCsharp.Validators;
-using FluentValidation.Results;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Threading;
+using DcTowerElevatorChallengeCsharp.CustomExceptions;
+using DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator;
+using DcTowerElevatorChallengeCsharp.Services.Elevator;
+using DcTowerElevatorChallengeCsharp.Services.Scheduler;
+using DcTowerElevatorChallengeCsharp.Validators;
+using FluentValidation.Results;
 
-namespace DcTowerElevatorChallengeCsharp.Services
+namespace DcTowerElevatorChallengeCsharp.Services.Scheduler
 {
-    public abstract class ASheduler : ISheduler
+    public abstract class AScheduler : IScheduler
     {
-        // stores all recieved requests
+        // stores all received requests
         private BlockingCollection<IRequestElevator> RequestQueue { get; init; }
         protected abstract IElevator ChooseElevator(IRequestElevator request);
-        protected abstract bool EnqueElevator(IElevator elevator);
+        public abstract bool EnqueueElevator(IElevator elevator);
         protected abstract string ElevatorStatus();
 
-        public ASheduler(BlockingCollection<IRequestElevator> setupColelction = null)
+        protected AScheduler(BlockingCollection<IRequestElevator> requestCollection = null)
         {
-            RequestQueue = setupColelction ?? new();
+            RequestQueue = requestCollection ?? new BlockingCollection<IRequestElevator>();
             // Initial elevator setup in child class
 
-            SheduleTransportation();
+            ScheduleTransportation();
         }
         public bool AddRequest(IRequestElevator request)
         {
@@ -33,7 +35,7 @@ namespace DcTowerElevatorChallengeCsharp.Services
                 {
                     foreach (var e in results.Errors)
                     {
-                        Console.WriteLine(e.ErrorMessage);
+                        Console.WriteLine("Request Rejected: " + e.ErrorMessage);
                     }
                     return false;
                 }
@@ -52,29 +54,29 @@ namespace DcTowerElevatorChallengeCsharp.Services
             Console.WriteLine();
         }
 
-        private void SheduleTransportation()
+        private void ScheduleTransportation()
         {
             //start a thread that starts new threads with elevators
-            Thread sheduleThread = new Thread(() =>
+            Thread scheduleThread = new Thread(() =>
             {
-                //continiously try to start elevator by taking requests and elevators from the queus
+                //continuously try to start elevator by taking requests and elevators from the queue
                 while (true)
                 {
                     IRequestElevator request = RequestQueue.Take();
                     IElevator elevator = ChooseElevator(request);
-                    StartElevatorJurney(request, elevator);
+                    StartElevatorJourney(request, elevator);
                 }
             });
-            sheduleThread.Start();
+            scheduleThread.Start();
         }
-        private void StartElevatorJurney(IRequestElevator request, IElevator elevator)
+        private void StartElevatorJourney(IRequestElevator request, IElevator elevator)
         {
             Thread elevatorThread = new Thread(() =>
             {
-                // call elevator transport method and upon finish enque itself again
                 elevator.Transport(request);
-                EnqueElevator(elevator);
+                EnqueueElevator(elevator);
             });
+            
             elevatorThread.Start();
         }
     }

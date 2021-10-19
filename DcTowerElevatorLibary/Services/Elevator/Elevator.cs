@@ -1,9 +1,8 @@
-﻿
-using DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator;
-using System;
+﻿using System;
 using System.Threading;
+using DcTowerElevatorChallengeCsharp.Data_Objects.RequestElevator;
 
-namespace DcTowerElevatorChallengeCsharp.Services
+namespace DcTowerElevatorChallengeCsharp.Services.Elevator
 {
     public class Elevator : IElevator
     {
@@ -20,10 +19,10 @@ namespace DcTowerElevatorChallengeCsharp.Services
         public bool Transport(IRequestElevator requestedTransport)
         {
             Console.WriteLine("Elevator: " + ElevatorName + " got a request");
-            Travel(CurrentElevatorLocation, requestedTransport.Current_Floor);
+            Travel(CurrentElevatorLocation, requestedTransport.CurrentFloor);
             OpenDoor();
             CloseDoor();
-            Travel(CurrentElevatorLocation, requestedTransport.Destination_Floor);
+            Travel(CurrentElevatorLocation, requestedTransport.DestinationFloor);
             OpenDoor();
             CloseDoor();
             return true;
